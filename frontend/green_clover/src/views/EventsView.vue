@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import vEventItem from '../components/event/v-event-item.vue';
 import vRangeFilter from '../components/header/v-range-filter.vue';
 import vDateFilter from '../components/header/v-date-filter.vue';
@@ -74,7 +75,20 @@ export default {
     send() {
       this.isOpen = false
       console.log(this.params)
+    },
+    test() {
+      axios.post('http://127.0.0.1:8000/info/', {
+        test1: 123
+      })
+        .then((res) => {
+          console.log(res)
+        });
     }
+  },
+  mounted() {
+    this.$nextTick(function () {
+      this.test();
+    })
   }
 }
 </script>

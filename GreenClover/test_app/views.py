@@ -4,6 +4,8 @@ import requests
 from rest_framework import generics
 from test_app.models import Snippet
 from test_app.serializers import SnippetSerializer
+from rest_framework.parsers import JSONParser
+import io
 
 class ProductList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
@@ -24,8 +26,10 @@ def get_info(lang='ru', order_by='slug', fields='id,slug,name'):
     return data
 
 def events(request: HttpRequest):
-    data = get_info()
-    return JsonResponse({'data': data})
+   # data = get_info()
+    stream = io.BytesIO(request.body)
+    json_str = JSONParser().parse(stream)
+    return JsonResponse({'data': json_str})
 
 def index(request):
     return HttpResponse("Index")
