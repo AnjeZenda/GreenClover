@@ -4,7 +4,7 @@
             Растояние от центра <img src="../../assets/icons/arrow-up.svg" alt="">
         </div>
         <div class="header-filters_item-range__body" v-if="isOpen">
-            <Slider v-model="filterKm" :format="{ suffix: ' км', decimals: 0 }" :max="10" :min="1" :step="1" />
+            <Slider v-model="$parent.params.km" :format="{ suffix: ' км', decimals: 0 }" :max="10" :min="1" :step="1" />
             <div class="header-filters_item-range__body-diapason">
                 <span>
                     1км
@@ -31,7 +31,6 @@ export default {
     data() {
         return {
             isOpen: false,
-            filterKm: 5,
         }
     },
 }
