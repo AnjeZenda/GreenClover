@@ -1,0 +1,71 @@
+header {
+    nav {
+        li {
+            font-weight: 400;
+            font-size: 18px;
+
+            &:last-child {
+                margin-left: 25px;
+            }
+        }
+    }
+}
+
+main.home {
+    padding-top: 40px;
+
+    .main-baner {
+        &_text {
+            h1 {
+                font-weight: 700;
+                font-size: 96px;
+                color: #000000;
+            }
+
+            p {
+                font-weight: 400;
+                font-size: 24px;
+                margin-top: 15px;
+                color: #000000;
+            }
+        }
+
+        &_btn {
+            a {
+                @include btn-default;
+
+                padding: 24px 56px;
+                display: table;
+                font-size: 24px;
+                margin-top: 100px;
+                color: #fff !important;
+            }
+        }
+    }
+
+    .main-usage {
+        margin-top: 60px;
+
+        h3 {
+            font-weight: 700;
+            font-size: 32px;
+            color: #000000;
+            margin-bottom: 40px;
+        }
+
+        &_item {
+            padding: 25px 15px;
+            border: 1px solid #000000;
+            border-radius: 16px;
+            font-weight: 400;
+            font-size: 24px;
+            color: #000000;
+
+            &-title {
+                font-weight: 700;
+                font-size: 32px;
+                color: #000000;
+            }
+        }
+    }
+}

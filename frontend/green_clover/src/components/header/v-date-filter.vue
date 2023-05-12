@@ -3,8 +3,8 @@
         <div class="header-filters_item-date__title" @click="isOpen = !isOpen">
             Выберите дату <img src="../../assets/icons/calendar.svg" alt="">
         </div>
-        <div class="header-filters_item-date__body" v-if="isOpen">
-        <DatePicker v-model.range="$parent.params.dates" :color="selectedColor"></DatePicker>
+        <div class="header-filters_item-date__body" :class="(isOpen) ? 'act' : ''">
+            <DatePicker v-model.range="$parent.params.dates" :color="selectedColor"></DatePicker>
         </div>
     </div>
 </template>
