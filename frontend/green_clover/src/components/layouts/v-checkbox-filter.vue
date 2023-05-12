@@ -1,9 +1,7 @@
 <template>
     <div class="header-filters_item-checkbox">
-        <div class="form-checkbox">
-            <input type="checkbox" id="free">
-            <label for="free">Бесплатное событие</label>
-        </div>
+        <input type="checkbox" id="free" v-model="$parent.params.isFree">
+        <label for="free">Бесплатное событие</label>
     </div>
 </template>
 
