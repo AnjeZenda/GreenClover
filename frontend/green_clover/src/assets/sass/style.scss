@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+    color: #313131;
+}
+
+@mixin filter-item {
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    font-size: 16px;
+    border: 1px solid #313131;
+    border-radius: 16px;
+    padding: 10px 20px;
+    display: table;
+    position: relative;
+
+    img {
+        margin-left: 20px;
+    }
+
+    &__title {
+        cursor: pointer;
+    }
+}
+
+input {
+    outline: none;
+}
+
+header {
+    padding-top: 40px;
+
+    .header-filters {
+        margin-top: 30px;
+        display: flex;
+
+        &_item {
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+
+            &:first-child {
+                margin-left: 0px
+            }
+
+            &-range {
+                @include filter-item;
+
+                &__body {
+                    margin-top: 25px;
+
+                    .slider-connect {
+                        background: #32C641;
+                    }
+
+                    .slider-tooltip {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #313131;
+                        background-color: rgba(0, 0, 0, 0);
+                        border: 0px;
+                        bottom: 15px;
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+
+                    .slider-handle {
+                        background: #32C641;
+                    }
+
+                    .slider-base {
+                        background: #313131;
+                    }
+
+                    &-diapason {
+                        margin-top: 15px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        span {
+                            font-weight: 400;
+                            font-size: 12px;
+                        }
+                    }
+
+                    &-text {
+                        width: 70%;
+                        margin-top: 10px;
+
+                        input {
+                            max-width: 100%;
+                            @include filter-item;
+
+                            ::placeholder {
+                                opacity: 0.4;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-date {
+                @include filter-item;
+
+                &__body {
+                    position: absolute;
+                    left: 0px;
+                    top: 50px;
+
+                    .vc-title,
+                    .vc-arrow,
+                    .vc-nav-arrow,
+                    .vc-nav-title,
+                    .vc-nav-item {
+                        background-color: rgba(0, 0, 0, 0);
+                    }
+
+                    .vc-nav-item.is-active {
+                        background: #32C641;
+                    }
+
+                    .vc-nav-title {
+                        font-weight: 400;
+                        font-size: 16px;
+                    }
+
+                    .vc-title {
+                        font-weight: 400;
+                        font-size: 16px;
+                        text-transform: capitalize;
+                    }
+
+                    .vc-weekday {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #000000;
+                    }
+                }
+            }
+
+            &-checkbox {
+                label {
+                    font-weight: 400;
+                    font-size: 16px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 36px;
+}
+
+$checkbox-width: 18px;
+
+// Checkboxes
+input[type="checkbox"] {
+    position: absolute;
+    left: -9999px;
+
+    &+label {
+        position: relative;
+        display: inline-block;
+        padding: 6px 10px 6px ($checkbox-width + 10);
+        cursor: pointer;
+
+        // Default State
+        &:before {
+            display: block;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin: (-$checkbox-width/2) 0 0;
+            width: $checkbox-width;
+            height: $checkbox-width;
+            background-image: url("../icons/okey.svg");
+            background-repeat: no-repeat;
+            background-size: 72px auto;
+            -webkit-background-size: 72px auto;
+            -moz-background-size: 72px auto;
+        }
+    }
+
+    // Checked State
+    &:checked+label {
+        &:before {
+            background-position: (-$checkbox-width) 0;
+        }
+    }
+
+    // Disabled State
+    &:disabled {
+        &+label {
+            cursor: not-allowed;
+
+            &:before {
+                background-position: (-$checkbox-width*2) 0;
+            }
+        }
+
+        // Disabled Checked
+        &:checked+label {
+            &:before {
+                background-position: (-$checkbox-width*3) 0;
+            }
+        }
+    }
+}
+
+main {
+    margin-top: 50px;
+}
