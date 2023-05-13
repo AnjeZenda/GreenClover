@@ -34,7 +34,7 @@ def get_time(metro_latitude, metro_longitude, place_latitude, place_longitude):
 
 def define_location(address: str):
     geolocator = Nominatim(user_agent="SPb")
-    if address:
+    if address != '':
         location = geolocator.geocode(address)
         return location.latitude, location.longitude
     return None, None
