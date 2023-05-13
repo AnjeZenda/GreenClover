@@ -11,11 +11,6 @@ from geopy.distance import geodesic
 from math import ceil
 from datetime import datetime
 from geopy.geocoders import Nominatim
-geolocator = Nominatim(user_agent="Tester") #Указываем название приложения (так нужно, да)
-adress = str(input('Введите адрес: \n')) #Получаем интересующий нас адрес
-location = geolocator.geocode(adress) #Создаем переменную, которая состоит из нужного нам адреса
-print(location) #Выводим результат: адрес в полном виде
-print(location.latitude, location.longitude)
 
 
 
@@ -38,7 +33,7 @@ def get_time(metro_latitude, metro_longitude, place_latitude, place_longitude):
     return time
 
 def define_location(address: str):
-    geolocator = Nominatim(user="SPb")
+    geolocator = Nominatim(user_agent="SPb")
     if address:
         location = geolocator.geocode(address)
         return location.latitude, location.longitude
