@@ -16,7 +16,7 @@
           <vCheckboxFilter></vCheckboxFilter>
         </div>
         <div class="header-filters_item">
-          <div class="header-filters_item-btn" @click="send()">
+          <div class="header-filters_item-btn" @click="getList()">
             Применить фильтры
           </div>
         </div>
@@ -66,14 +66,9 @@ export default {
     }
   },
   methods: {
-    send() {
-      this.isOpen = false
-      console.log(this.params)
-    },
     getList() {
-      axios.post('http://127.0.0.1:8000/events/', {
-        test1: 123
-      })
+      this.isOpen = false
+      axios.post('http://127.0.0.1:8000/events/', this.params)
         .then((res) => {
           this.eventList = res.data.data.data
         });
