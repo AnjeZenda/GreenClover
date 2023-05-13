@@ -60,8 +60,9 @@ export default {
     return {
       params: {
         km: 5,
-        dates: { start: moment().format('YYYY-MM-DD'), end: moment(Date.now() + 1000 * 60 * 60 * 24).format('YYYY-MM-DD') },
-        isFree: false
+        dates: moment().format('YYYY-MM-DD'),
+        isFree: false,
+        adress: 'Лермонтовский просп., 43/1'
       },
       isOpen: false,
       eventList: [],
@@ -70,8 +71,7 @@ export default {
   methods: {
     getList() {
       this.isOpen = false
-      this.params.dates.start = moment(this.params.dates.start).format('YYYY-MM-DD')
-      this.params.dates.end = moment(this.params.dates.end).format('YYYY-MM-DD')
+      this.params.dates = moment(this.params.dates).format('YYYY-MM-DD')
       axios.post('http://127.0.0.1:8000/events/', this.params)
         .then((res) => {
           this.eventList = res.data.data.data

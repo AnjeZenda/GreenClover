@@ -246,6 +246,41 @@ main {
                     max-height: 100%;
                     max-width: 100%;
                 }
+
+                .carousel__prev,
+                .carousel__next {
+                    background: #FFFFFF;
+                    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+                    border-radius: 20px;
+                }
+
+                .carousel,
+                .carousel__viewport {
+                    height: 100%;
+                }
+
+                .carousel__pagination {
+                    position: absolute;
+                    top: calc(100% - 30px);
+                    width: 100%;
+                    padding: 0;
+                    background-color: rgba(0, 0, 0, 0.25);
+                }
+
+                .carousel__pagination-button {
+                    &::after {
+                        background: #FFFFFF;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .carousel__pagination-button--active {
+                    &::after {
+                        background: #32C641;
+                    }
+                }
             }
 
             &-title {
@@ -257,7 +292,6 @@ main {
             }
 
             &-description {
-                margin-top: auto;
                 margin-top: 10px;
                 text-transform: capitalize;
             }
@@ -273,7 +307,7 @@ main {
             }
 
             &-metro {
-                margin-top: auto;
+                margin-top: 10px;
 
                 div {
                     width: 12px;
