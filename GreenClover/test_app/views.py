@@ -8,7 +8,7 @@ from rest_framework.parsers import JSONParser
 import io
 from dadata import Dadata
 from geopy.distance import geodesic
-from math import ceil
+from math import ceil, pi, cos
 from datetime import datetime
 from geopy.geocoders import Nominatim
 
@@ -35,9 +35,20 @@ def get_time(metro_latitude, metro_longitude, place_latitude, place_longitude):
 def define_location(address: str):
     geolocator = Nominatim(user_agent='SPb')
     if address != '':
-        location = geolocator.geocode('Санкт-Петербург ' + address)
+        location = geolocator.geocode(address)
         return location.latitude, location.longitude, location.address
     return None, None, None
+
+def get_stops_near(latitude, longitude):
+    earth_radius = 6371 * 1000
+    difference = (200 / earth_radius) * (180 / pi)
+    max_latitude = latitude + difference
+    max_longitude = longitude + difference / cos(latitude * pi/180)
+    min_latitude = latitude - difference
+    min_longitude = longitude - difference / cos(latitude * pi/180)
+    url = f"https://api.petersburg.travel/v1/stops/near?lat1={max_latitude}&lon1={max_longitude}&lat2={min_latitude}&lon2={min_longitude}"
+    response = requests.get(url, headers={'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhU1RaZm42bHpTdURYcUttRkg1SzN5UDFhT0FxUkhTNm9OendMUExaTXhFIn0.eyJleHAiOjE3Nzg1MjM2NDEsImlhdCI6MTY4MzgyOTI0MSwianRpIjoiYWRiMzIwYjMtYjIzMy00OTYyLTg1ZWQtYzdlNjY2NzAyNzcwIiwiaXNzIjoiaHR0cHM6Ly9rYy5wZXRlcnNidXJnLnJ1L3JlYWxtcy9lZ3MtYXBpIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjEzZjZiODViLWM1MGUtNDI0ZS1hNzhjLTliYTc0NzdhN2I0NSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLXJlc3QtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImIzZjhlMmFhLTMwZDktNGNjMy1iNjAyLWM4YjU3MGRmOTQ3MiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZWdzLWFwaSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiJiM2Y4ZTJhYS0zMGQ5LTRjYzMtYjYwMi1jOGI1NzBkZjk0NzIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiLQkNC90LTRgNC10Lkg0K_Qs9C40L0iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI1YjVjMGFmZWU3NGQwOGY5YzViYzg5MzQ1YmNmMTUxYSIsImdpdmVuX25hbWUiOiLQkNC90LTRgNC10LkiLCJmYW1pbHlfbmFtZSI6ItCv0LPQuNC9In0.1Zn6hB_TfDjIGmBv5CsQ3fTGnUoW5Ae7tx0YoY1Z61Eo9IR2u8vfPFbKn4Ju0Z5_wWvz1Xhos1Voz5GtZb8_Q0SnIX1hYbpBEd5VmcuijnsVa6IHF7ky6J3JDlp-fgALBJ-au7Qj5qSkGwtCnmVsV1cf1RfAodmlR3RLLQX8T1_08uidnDxiZqgEnlBVp2PMy9GGLX-WJFT6MCrg8Q7OUxHj7lZPsSRmIQIa0NVoV-09cH1RRSJKgvPPnfRZsppKG04rrPX9ECEDQlaDU4nYVX-p_Zt0JPvrzbpeX3i8Enh1FJsKHfRG83WQXyCDzJZOqO_5Hmo4AN8p2ACg5cc9kQ'})
+
 
 def get_info(request: HttpRequest):
     raw_info = io.BytesIO(request.body)
@@ -56,7 +67,7 @@ def get_info(request: HttpRequest):
     if response.status_code == 200:
         data = response.json()
         for item in data['data']:
-            item['test'] = [latitude, longitude, addr]
+            item['test'] = [latitude, longitude, addr] # TODO add stops info here
             if item['images'][0]['image'] == BLOCK_IMAGE_INFO:
                 item['images'] = False
             item['description'] = item['description'][1:101] + '...'
