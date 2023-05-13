@@ -232,6 +232,9 @@ main {
             font-weight: 400;
             font-size: 16px;
             margin-top: 30px;
+            height: calc(100% - 20px);
+            display: flex;
+            flex-direction: column;
 
             &-img {
                 img {
@@ -244,10 +247,13 @@ main {
                 font-weight: 700;
                 font-size: 18px;
                 margin-top: 15px;
+                text-transform: capitalize;
+                line-height: 120%;
             }
 
             &-description {
                 margin-top: 10px;
+                text-transform: capitalize;
             }
 
             &-number {
@@ -261,12 +267,11 @@ main {
             }
 
             &-metro {
-                margin-top: 10px;
+                margin-top: auto;
 
                 div {
                     width: 12px;
                     height: 12px;
-                    background: #E32C87;
                     border-radius: 50%;
                     display: inline-block;
                     margin-right: 10px;

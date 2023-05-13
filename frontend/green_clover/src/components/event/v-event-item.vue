@@ -5,25 +5,25 @@
                 <img src="../../assets/img/event_image.jpg" alt="">
             </div>
             <div class="event-list_item-title">
-                Государственный Эрмитаж
+                {{ item.title }}
             </div>
             <div class="event-list_item-description">
-                Российский государственный музей изобразительного и декоративно-прикладного искусств
+                {{ item.description }}
             </div>
             <div class="event-list_item-number">
                 <span>
                     Телефон:
                 </span>
                 <span>
-                    8 (812) 710-90-79
+                    {{ item.place.phone }}
                 </span>
             </div>
             <div class="event-list_item-address">
-                Дворцовая пл. 2
+                {{ item.place.address }}
             </div>
-            <div class="event-list_item-metro">
-                <div></div>
-                ст.м. Адмиралтейская (5 минут)
+            <div class="event-list_item-metro" v-if="item.place.subway">
+                <div :style="'background: #' + item.subway_info[0].data.color"></div>
+                ст.м. {{ item.place.subway }} (5 минут)
             </div>
         </div>
     </div>
@@ -31,6 +31,7 @@
 
 <script>
 export default {
-    name: 'v-home-item'
+    name: 'v-home-item',
+    props: ['item']
 }
 </script>

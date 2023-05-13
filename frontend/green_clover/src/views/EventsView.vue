@@ -30,14 +30,7 @@
     <div class="container">
       <div class="event-list">
         <div class="row">
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
-          <vEventItem></vEventItem>
+          <vEventItem v-for="item in eventList" :key="item.place.id" :item="item"></vEventItem>
         </div>
       </div>
     </div>
@@ -69,6 +62,7 @@ export default {
         isFree: false
       },
       isOpen: false,
+      eventList: [],
     }
   },
   methods: {
@@ -76,18 +70,18 @@ export default {
       this.isOpen = false
       console.log(this.params)
     },
-    test() {
-      axios.post('http://127.0.0.1:8000/info/', {
+    getList() {
+      axios.post('http://127.0.0.1:8000/events/', {
         test1: 123
       })
         .then((res) => {
-          console.log(res)
+          this.eventList = res.data.data.data
         });
     }
   },
   mounted() {
     this.$nextTick(function () {
-      this.test();
+      this.getList();
     })
   }
 }
