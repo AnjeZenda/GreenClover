@@ -199,6 +199,14 @@ header {
             &-btn {
                 @include btn-default;
             }
+
+            input.filter-adress {
+                @include filter-item;
+
+                @media (max-width: 992px) {
+                    width: 100%;
+                }
+            }
         }
     }
 

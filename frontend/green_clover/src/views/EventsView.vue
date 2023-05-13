@@ -7,6 +7,9 @@
       <div class="header-filters" :class="isOpen ? 'act' : ''">
         <vFilterTitle></vFilterTitle>
         <div class="header-filters_item">
+          <input type="text" placeholder="Введите свой адрес" class="filter-adress" v-model="params.address">
+        </div>
+        <div class="header-filters_item">
           <vRangeFilter></vRangeFilter>
         </div>
         <div class="header-filters_item">
@@ -35,6 +38,7 @@
       </div>
     </div>
   </main>
+  <div class="loader" v-if="isLoad">loading</div>
 </template>
 
 <script>
@@ -62,18 +66,22 @@ export default {
         km: 5,
         dates: moment().format('YYYY-MM-DD'),
         isFree: false,
-        adress: 'Лермонтовский просп., 43/1'
+        address: ''
       },
       isOpen: false,
       eventList: [],
+      isLoad: true
     }
   },
   methods: {
     getList() {
       this.isOpen = false
+      this.isLoad = true
+      this.eventList = []
       this.params.dates = moment(this.params.dates).format('YYYY-MM-DD')
       axios.post('http://127.0.0.1:8000/events/', this.params)
         .then((res) => {
+          this.isLoad = false
           this.eventList = res.data.data.data
         });
     }

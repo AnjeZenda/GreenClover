@@ -1,7 +1,14 @@
 <template>
     <div class="header-filters_item-range">
         <div class="header-filters_item-range__title" @click="isOpen = !isOpen">
-            Растояние от центра <img src="../../assets/icons/arrow-up.svg" alt="">
+        <span v-if="$parent.params.address == ''">
+            Растояние от центра 
+        </span>
+        <span v-else>
+            Растояние от вашего места 
+        </span>
+            
+            <img src="../../assets/icons/arrow-up.svg" alt="">
         </div>
         <div class="header-filters_item-range__body" v-if="isOpen">
             <Slider v-model="$parent.params.km" :format="{ suffix: ' км', decimals: 0 }" :max="10" :min="1" :step="1" />
