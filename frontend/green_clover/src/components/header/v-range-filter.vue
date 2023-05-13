@@ -11,13 +11,13 @@
             <img src="../../assets/icons/arrow-up.svg" alt="">
         </div>
         <div class="header-filters_item-range__body" v-if="isOpen">
-            <Slider v-model="$parent.params.km" :format="{ suffix: ' км', decimals: 0 }" :max="10" :min="1" :step="1" />
+            <Slider v-model="$parent.params.km" :format="{ suffix: ' км', decimals: 0 }" :max="15" :min="1" :step="1" />
             <div class="header-filters_item-range__body-diapason">
                 <span>
                     1км
                 </span>
                 <span>
-                    10км
+                    15км
                 </span>
             </div>
             <!--   <div class="header-filters_item-range__body-text">

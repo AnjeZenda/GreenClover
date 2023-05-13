@@ -13,7 +13,7 @@
                     </p>
                 </div>
                 <div class="main-baner_btn">
-                    <router-link to="/events">Просмотреть</router-link>
+                    <router-link to="/events/1">Просмотреть</router-link>
                 </div>
             </div>
             <div class="col-4">

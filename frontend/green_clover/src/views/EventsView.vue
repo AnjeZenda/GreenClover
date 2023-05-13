@@ -35,6 +35,41 @@
         <div class="row">
           <vEventItem v-for="item in eventList" :key="item.place.id" :item="item"></vEventItem>
         </div>
+        <div class="event-list_pagination" v-if="!isLoad">
+          <div class="event-list_pagination-prev"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList()"
+            v-if="Number(this.$route.params.page) - 1 > 0">
+            <img src="../assets/icons/arrow-prev.svg" alt="">
+          </div>
+          <div class="event-list_pagination-number__prev"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList()"
+            v-if="Number(this.$route.params.page) - 1 > 0">
+            {{ Number(this.$route.params.page) - 1 }}
+          </div>
+          <div class="event-list_pagination-number__current">
+            {{ this.$route.params.page }}
+          </div>
+
+          <div class="event-list_pagination-number__next"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList()"
+            v-if="Number($route.params.page) + 1 < totalPages">
+            {{ Number($route.params.page) + 1 }}
+          </div>
+
+          <div class="event-list_pagination-number__dots" v-if="totalPages != $route.params.page">
+            ...
+          </div>
+
+          <div class="event-list_pagination-number__last" v-if="totalPages != $route.params.page"
+            @click="this.$router.push(`/events/${totalPages}`), getList()">
+            {{ totalPages }}
+          </div>
+          <div class="event-list_pagination-next"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList()"
+            v-if="Number($route.params.page) + 1 < totalPages">
+            <img src="../assets/icons/arrow-next.svg" alt="">
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -68,11 +103,13 @@ export default {
         km: 5,
         dates: moment().format('YYYY-MM-DD'),
         isFree: false,
-        address: ''
+        address: '',
+        page: this.$route.params.page
       },
       isOpen: false,
       eventList: [],
       isLoad: true,
+      totalPages: 0
     }
   },
   methods: {
@@ -85,6 +122,8 @@ export default {
         .then((res) => {
           this.isLoad = false
           this.eventList = res.data.data.data
+          this.totalEvents = res.data.data.count
+          this.totalPages = Math.ceil(res.data.data.count / 12)
         });
     }
   },
