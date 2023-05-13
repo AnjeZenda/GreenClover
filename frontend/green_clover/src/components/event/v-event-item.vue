@@ -40,22 +40,34 @@
                 <div :style="'background: #' + item.subway_info[0].data.color"></div>
                 ст.м. {{ item.place.subway }} ({{ item.subway_time }} мин)
             </div>
+            <div class="event-list_item-btn" @click="isOpen = true">
+                Подробнее
+            </div>
         </div>
     </div>
+    <vEventMoreInfo v-if="isOpen" :item="item"></vEventMoreInfo>
 </template>
 
 <script>
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
+import vEventMoreInfo from './v-event-more-info.vue';
+
 export default {
     name: 'v-home-item',
     props: ['item'],
+    data() {
+        return {
+            isOpen: false
+        }
+    },
     components: {
         Carousel,
         Slide,
         Pagination,
         Navigation,
+        vEventMoreInfo
     },
 }
 </script>

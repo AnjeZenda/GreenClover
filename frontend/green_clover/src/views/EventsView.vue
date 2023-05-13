@@ -37,12 +37,12 @@
         </div>
         <div class="event-list_pagination" v-if="!isLoad">
           <div class="event-list_pagination-prev"
-            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList()"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList(Number(this.$route.params.page) - 1)"
             v-if="Number(this.$route.params.page) - 1 > 0">
             <img src="../assets/icons/arrow-prev.svg" alt="">
           </div>
           <div class="event-list_pagination-number__prev"
-            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList()"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) - 1}`), getList(Number(this.$route.params.page) - 1)"
             v-if="Number(this.$route.params.page) - 1 > 0">
             {{ Number(this.$route.params.page) - 1 }}
           </div>
@@ -51,7 +51,7 @@
           </div>
 
           <div class="event-list_pagination-number__next"
-            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList()"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList(Number(this.$route.params.page) + 1)"
             v-if="Number($route.params.page) + 1 < totalPages">
             {{ Number($route.params.page) + 1 }}
           </div>
@@ -61,11 +61,11 @@
           </div>
 
           <div class="event-list_pagination-number__last" v-if="totalPages != $route.params.page"
-            @click="this.$router.push(`/events/${totalPages}`), getList()">
+            @click="this.$router.push(`/events/${totalPages}`), getList(totalPages)">
             {{ totalPages }}
           </div>
           <div class="event-list_pagination-next"
-            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList()"
+            @click="this.$router.push(`/events/${Number(this.$route.params.page) + 1}`), getList(Number(this.$route.params.page) + 1)"
             v-if="Number($route.params.page) + 1 < totalPages">
             <img src="../assets/icons/arrow-next.svg" alt="">
           </div>
@@ -113,16 +113,16 @@ export default {
     }
   },
   methods: {
-    getList() {
+    getList(page = 0) {
       this.isOpen = false
       this.isLoad = true
       this.eventList = []
       this.params.dates = moment(this.params.dates).format('YYYY-MM-DD')
+      if(page != 0) this.params.page = page
       axios.post('http://127.0.0.1:8000/events/', this.params)
         .then((res) => {
           this.isLoad = false
           this.eventList = res.data.data.data
-          this.totalEvents = res.data.data.count
           this.totalPages = Math.ceil(res.data.data.count / 12)
         });
     }

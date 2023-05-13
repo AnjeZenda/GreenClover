@@ -97,6 +97,7 @@ def get_info(request: HttpRequest):
             #     item['place']['coords']['lat'], item['place']['coords']['lon'])
             if item['images'][0]['image'] == BLOCK_IMAGE_INFO:
                 item['images'] = False
+            item['description_full'] = item['description']
             item['description'] = item['description'][1:101] + '...'
             subway = item['place']['subway'].split(',')
             if len(subway) != 1:
