@@ -80,7 +80,7 @@ def get_info(request: HttpRequest):
     raw_info = io.BytesIO(request.body)
     info = JSONParser().parse(raw_info)
     start = datetime(*list(map(int, info['dates'].split('-'))))
-    is_free = info['isFree'] 
+    is_free = 'true' if info['isFree'] else 'flase' 
     kilometers = int(info['km'])
     latitude, longitude, addr = define_location_degrees(info['address'])
     if not latitude:
