@@ -39,6 +39,8 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment'
+
 import vEventItem from '../components/event/v-event-item.vue';
 import vRangeFilter from '../components/header/v-range-filter.vue';
 import vDateFilter from '../components/header/v-date-filter.vue';
@@ -58,7 +60,7 @@ export default {
     return {
       params: {
         km: 5,
-        dates: { start: new Date(), end: new Date(Date.now() + 1000 * 60 * 60 * 24) },
+        dates: { start: moment().format('YYYY-MM-DD'), end: moment(Date.now() + 1000 * 60 * 60 * 24).format('YYYY-MM-DD') },
         isFree: false
       },
       isOpen: false,
@@ -68,6 +70,8 @@ export default {
   methods: {
     getList() {
       this.isOpen = false
+      this.params.dates.start = moment(this.params.dates.start).format('YYYY-MM-DD')
+      this.params.dates.end = moment(this.params.dates.end).format('YYYY-MM-DD')
       axios.post('http://127.0.0.1:8000/events/', this.params)
         .then((res) => {
           this.eventList = res.data.data.data

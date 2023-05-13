@@ -237,9 +237,14 @@ main {
             flex-direction: column;
 
             &-img {
+                height: 200px;
+                text-align: center;
+
                 img {
-                    width: 100%;
+                    width: auto;
                     border-radius: 16px;
+                    max-height: 100%;
+                    max-width: 100%;
                 }
             }
 
@@ -252,6 +257,7 @@ main {
             }
 
             &-description {
+                margin-top: auto;
                 margin-top: 10px;
                 text-transform: capitalize;
             }
