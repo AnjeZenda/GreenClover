@@ -37,12 +37,12 @@
                 {{ item.place.address }}
             </div>
             <div class="event-list_item-metro" v-if="item.place.subway">
-                <div :style="'background: #' + item.subway_info[0].data.color"></div>
+                <div v-if="item.subway_info[0]" :style="'background: #' + item.subway_info[0].data.color"></div>
                 ст.м. {{ item.place.subway }} ({{ item.subway_time }} мин)
             </div>
-            <div class="event-list_item-btn" @click="isOpen = true">
+           <!-- <div class="event-list_item-btn" @click="isOpen = true">
                 Подробнее
-            </div>
+            </div> -->
         </div>
     </div>
     <vEventMoreInfo v-if="isOpen" :item="item"></vEventMoreInfo>

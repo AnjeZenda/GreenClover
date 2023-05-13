@@ -1,5 +1,5 @@
 <template>
-    <div class="more-info">
+    <!--  <div class="more-info">
         <div class="more-info_body">
             <div class="more-info_body-top">
                 <div class="row">
@@ -26,6 +26,7 @@
                                 {{ item.place.address }}
                             </div>
                         </div>
+                        .more-info_body-top_
                     </div>
                     <div class="col-6">
 
@@ -33,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </template>
 
 <script>
