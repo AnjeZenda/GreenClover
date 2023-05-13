@@ -7,7 +7,7 @@
             <nav class="header-menu">
                 <ul>
                     <li><router-link to="/">Главная</router-link></li>
-                    <li><router-link to="/events">Список мест</router-link></li>
+                    <li><router-link to="/events/1">Список мест</router-link></li>
                 </ul>
             </nav>
         </div>

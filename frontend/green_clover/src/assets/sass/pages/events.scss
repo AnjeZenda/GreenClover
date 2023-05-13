@@ -347,5 +347,34 @@ main {
                 }
             }
         }
+
+        &_pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+
+            &>div {
+                font-weight: 700;
+                font-size: 12px;
+                margin-left: 25px;
+                cursor: pointer;
+
+                &:first-child {
+                    margin-left: 0px;
+                }
+            }
+
+            &-number__current {
+                border: 1px solid #313131;
+                border-radius: 4px;
+                padding: 5px 10px;
+            }
+
+
+            &-next {
+                margin-left: 25px;
+            }
+        }
     }
 }
