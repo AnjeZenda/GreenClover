@@ -33,11 +33,11 @@ def get_time(metro_latitude, metro_longitude, place_latitude, place_longitude):
     return time
 
 def define_location(address: str):
-    geolocator = Nominatim(user_agent="SPb")
+    geolocator = Nominatim(user_agent='SPb')
     if address != '':
-        location = geolocator.geocode(address)
-        return location.latitude, location.longitude
-    return 0, 0
+        location = geolocator.geocode('Санкт-Петербург ' + address)
+        return location.latitude, location.longitude, location.address
+    return None, None, None
 
 def get_info(request: HttpRequest):
     raw_info = io.BytesIO(request.body)
@@ -45,7 +45,7 @@ def get_info(request: HttpRequest):
     start = datetime(*list(map(int, info['dates'].split('-'))))
     is_free = bool(info['isFree'])
     kilometers = int(info['km'])
-    latitude, longitude = define_location(info['address'])
+    latitude, longitude, addr= define_location(info['address'])
     if not latitude:
         latitude, longitude = '59.939016', '30.31588'
     
@@ -56,6 +56,7 @@ def get_info(request: HttpRequest):
     if response.status_code == 200:
         data = response.json()
         for item in data['data']:
+            item['test'] = [latitude, longitude, addr]
             if item['images'][0]['image'] == BLOCK_IMAGE_INFO:
                 item['images'] = False
             item['description'] = item['description'][1:101] + '...'
