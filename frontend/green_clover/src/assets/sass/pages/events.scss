@@ -17,6 +17,7 @@ header {
             margin-top: 0px;
             padding: 20px;
             display: none;
+            z-index: 99999;
         }
 
         &.act {
@@ -207,6 +208,22 @@ header {
                     width: 100%;
                 }
             }
+
+            &-address {
+                @include filter-item;
+                position: absolute;
+                z-index: 999;
+                background-color: #ffff;
+
+                &__item {
+                    &:first-child {
+                        margin-top: 0px;
+                    }
+
+                    cursor: pointer;
+                    margin-top: 5px
+                }
+            }
         }
     }
 
@@ -265,6 +282,10 @@ main {
                 .carousel,
                 .carousel__viewport {
                     height: 100%;
+                }
+
+                .carousel__slide {
+                    align-items: flex-start;
                 }
 
                 .carousel__pagination {

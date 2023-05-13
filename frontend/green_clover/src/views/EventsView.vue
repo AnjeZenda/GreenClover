@@ -7,7 +7,7 @@
       <div class="header-filters" :class="isOpen ? 'act' : ''">
         <vFilterTitle></vFilterTitle>
         <div class="header-filters_item">
-          <input type="text" placeholder="Введите свой адрес" class="filter-adress" v-model="params.address">
+          <vAddressFilter></vAddressFilter>
         </div>
         <div class="header-filters_item">
           <vRangeFilter></vRangeFilter>
@@ -50,6 +50,7 @@ import vRangeFilter from '../components/header/v-range-filter.vue';
 import vDateFilter from '../components/header/v-date-filter.vue';
 import vCheckboxFilter from '../components/header/v-checkbox-filter.vue'
 import vFilterTitle from '../components/header/v-filter-title.vue';
+import vAddressFilter from '../components/header/v-address-filter.vue';
 
 export default {
   name: 'Home',
@@ -58,7 +59,8 @@ export default {
     vRangeFilter,
     vDateFilter,
     vCheckboxFilter,
-    vFilterTitle
+    vFilterTitle,
+    vAddressFilter
   },
   data() {
     return {
@@ -70,7 +72,7 @@ export default {
       },
       isOpen: false,
       eventList: [],
-      isLoad: true
+      isLoad: true,
     }
   },
   methods: {
